@@ -27,113 +27,181 @@ const Login = () => {
   };
 
   return (
-    <div style={styles.wrapper}>
-      {/* LEFT SIDE */}
-      <div style={styles.left}>
-        <Link to="/" style={styles.logo}>Skill<span style={styles.orange}>Nest</span></Link>
-        <h2 style={styles.leftTitle}>Welcome<br /><span style={styles.orange}>Back!</span></h2>
-        <p style={styles.leftSub}>Login to continue your learning journey and access all your enrolled courses.</p>
-        <div style={styles.featureList}>
-          {['Access 500+ courses', 'Track your progress', 'Earn certificates', 'Learn at your pace'].map((f, i) => (
-            <div key={i} style={styles.feature}>
-              <div style={styles.dot}></div>{f}
-            </div>
-          ))}
-        </div>
-      </div>
+    <div>
+      <style>{`
+        .auth-wrapper {
+          display: flex;
+          min-height: 100vh;
+        }
+        .auth-left {
+          flex: 1;
+          background: #1a1a1a;
+          padding: 60px 48px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .auth-logo {
+          font-size: 22px;
+          font-weight: 700;
+          color: white;
+          text-decoration: none;
+          margin-bottom: 40px;
+          display: block;
+        }
+        .auth-logo span { color: #f5a623; }
+        .auth-left h2 {
+          font-size: 36px;
+          font-weight: 300;
+          color: white;
+          letter-spacing: -1px;
+          margin-bottom: 12px;
+          line-height: 1.2;
+        }
+        .auth-left h2 strong { color: #f5a623; font-weight: 700; }
+        .auth-left p { color: #666; font-size: 14px; line-height: 1.7; margin-bottom: 28px; }
+        .feature-list { display: flex; flex-direction: column; gap: 12px; }
+        .feature {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 14px;
+          color: #aaa;
+        }
+        .feature-dot {
+          width: 6px; height: 6px;
+          border-radius: 50%;
+          background: #f5a623;
+          flex-shrink: 0;
+        }
+        .auth-right {
+          flex: 1;
+          padding: 60px 48px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .auth-right h3 { font-size: 24px; font-weight: 600; margin-bottom: 6px; color: #1a1a1a; }
+        .auth-right p { font-size: 13px; color: #888; margin-bottom: 28px; }
+        .switch-link { color: #f5a623; font-weight: 600; cursor: pointer; }
+        .auth-tabs {
+          display: flex;
+          border-bottom: 2px solid #f0f0f0;
+          margin-bottom: 24px;
+        }
+        .auth-tab {
+          padding: 8px 24px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #aaa;
+          cursor: pointer;
+          border-bottom: 2px solid transparent;
+          margin-bottom: -2px;
+        }
+        .auth-tab.active { color: #1a1a1a; border-color: #1a1a1a; }
+        .auth-error {
+          background: #fce8e8;
+          color: #991f1f;
+          padding: 10px 14px;
+          border-radius: 6px;
+          font-size: 13px;
+          margin-bottom: 16px;
+        }
+        .auth-form { display: flex; flex-direction: column; gap: 16px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-label { font-size: 12px; font-weight: 600; color: #444; letter-spacing: 0.5px; }
+        .auth-input {
+          border: 1.5px solid #e0e0e0;
+          border-radius: 7px;
+          padding: 11px 14px;
+          font-size: 14px;
+          font-family: inherit;
+          outline: none;
+          width: 100%;
+        }
+        .auth-btn {
+          padding: 13px;
+          background: #1a1a1a;
+          color: white;
+          border: none;
+          border-radius: 7px;
+          font-size: 15px;
+          font-weight: 500;
+          cursor: pointer;
+          margin-top: 4px;
+          width: 100%;
+        }
 
-      {/* RIGHT SIDE */}
-      <div style={styles.right}>
-        <h3 style={styles.rightTitle}>{isLogin ? 'Sign in to SkillNest' : 'Create your account'}</h3>
-        <p style={styles.rightSub}>
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <span style={styles.switchLink} onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? 'Register free' : 'Login'}
-          </span>
-        </p>
+        @media (max-width: 768px) {
+          .auth-wrapper { flex-direction: column; }
+          .auth-left {
+            padding: 32px 20px;
+            min-height: auto;
+          }
+          .auth-left h2 { font-size: 26px; }
+          .feature-list { display: none; }
+          .auth-right { padding: 32px 20px; }
+          .auth-right h3 { font-size: 20px; }
+        }
+      `}</style>
 
-        {/* TABS */}
-        <div style={styles.tabs}>
-          <div style={{ ...styles.tab, ...(isLogin ? styles.tabActive : {}) }} onClick={() => setIsLogin(true)}>Login</div>
-          <div style={{ ...styles.tab, ...(!isLogin ? styles.tabActive : {}) }} onClick={() => setIsLogin(false)}>Register</div>
-        </div>
-
-        {error && <div style={styles.error}>{error}</div>}
-
-        <form onSubmit={handleSubmit} style={styles.form}>
-          {!isLogin && (
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Full Name</label>
-              <input
-                style={styles.input}
-                type="text"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={e => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
-            </div>
-          )}
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Email Address</label>
-            <input
-              style={styles.input}
-              type="email"
-              placeholder="user@example.com"
-              value={formData.email}
-              onChange={e => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
+      <div className="auth-wrapper">
+        {/* LEFT */}
+        <div className="auth-left">
+          <Link to="/" className="auth-logo">Skill<span>Nest</span></Link>
+          <h2>Welcome<br /><strong>Back!</strong></h2>
+          <p>Login to continue your learning journey and access all your enrolled courses.</p>
+          <div className="feature-list">
+            {['Access 500+ courses', 'Track your progress', 'Earn certificates', 'Learn at your pace'].map((f, i) => (
+              <div key={i} className="feature">
+                <div className="feature-dot"></div>{f}
+              </div>
+            ))}
           </div>
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Password</label>
-            <input
-              style={styles.input}
-              type="password"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={e => setFormData({ ...formData, password: e.target.value })}
-              required
-            />
+        </div>
+
+        {/* RIGHT */}
+        <div className="auth-right">
+          <h3>{isLogin ? 'Sign in to SkillNest' : 'Create your account'}</h3>
+          <p>
+            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            <span className="switch-link" onClick={() => setIsLogin(!isLogin)}>
+              {isLogin ? 'Register free' : 'Login'}
+            </span>
+          </p>
+          <div className="auth-tabs">
+            <div className={`auth-tab ${isLogin ? 'active' : ''}`} onClick={() => setIsLogin(true)}>Login</div>
+            <div className={`auth-tab ${!isLogin ? 'active' : ''}`} onClick={() => setIsLogin(false)}>Register</div>
           </div>
-          <button type="submit" style={styles.btnPrimary} disabled={loading}>
-            {loading ? 'Please wait...' : (isLogin ? 'Login →' : 'Register →')}
-          </button>
-        </form>
+
+          {error && <div className="auth-error">{error}</div>}
+
+          <form onSubmit={handleSubmit} className="auth-form">
+            {!isLogin && (
+              <div className="input-group">
+                <label className="input-label">Full Name</label>
+                <input className="auth-input" type="text" placeholder="Your name"
+                  value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} required />
+              </div>
+            )}
+            <div className="input-group">
+              <label className="input-label">Email Address</label>
+              <input className="auth-input" type="email" placeholder="user@example.com"
+                value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} required />
+            </div>
+            <div className="input-group">
+              <label className="input-label">Password</label>
+              <input className="auth-input" type="password" placeholder="••••••••"
+                value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} required />
+            </div>
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? 'Please wait...' : (isLogin ? 'Login →' : 'Register →')}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
-};
-
-const styles = {
-  wrapper: { display: 'flex', minHeight: '100vh' },
-  left: {
-    flex: 1, background: '#1a1a1a', padding: '60px 48px',
-    display: 'flex', flexDirection: 'column', justifyContent: 'center',
-  },
-  logo: { fontSize: '22px', fontWeight: '700', color: 'white', textDecoration: 'none', marginBottom: '40px', display: 'block' },
-  orange: { color: '#f5a623' },
-  leftTitle: { fontSize: '36px', fontWeight: '300', color: 'white', letterSpacing: '-1px', marginBottom: '12px', lineHeight: 1.2 },
-  leftSub: { color: '#666', fontSize: '14px', lineHeight: '1.7', marginBottom: '28px' },
-  featureList: { display: 'flex', flexDirection: 'column', gap: '12px' },
-  feature: { display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#aaa' },
-  dot: { width: '6px', height: '6px', borderRadius: '50%', background: '#f5a623', flexShrink: 0 },
-  right: { flex: 1, padding: '60px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' },
-  rightTitle: { fontSize: '24px', fontWeight: '600', marginBottom: '6px', color: '#1a1a1a' },
-  rightSub: { fontSize: '13px', color: '#888', marginBottom: '28px' },
-  switchLink: { color: '#f5a623', fontWeight: '600', cursor: 'pointer' },
-  tabs: { display: 'flex', borderBottom: '2px solid #f0f0f0', marginBottom: '24px' },
-  tab: { padding: '8px 24px', fontSize: '14px', fontWeight: '500', color: '#aaa', cursor: 'pointer', borderBottom: '2px solid transparent', marginBottom: '-2px' },
-  tabActive: { color: '#1a1a1a', borderColor: '#1a1a1a' },
-  error: { background: '#fce8e8', color: '#991f1f', padding: '10px 14px', borderRadius: '6px', fontSize: '13px', marginBottom: '16px' },
-  form: { display: 'flex', flexDirection: 'column', gap: '16px' },
-  inputGroup: { display: 'flex', flexDirection: 'column', gap: '6px' },
-  label: { fontSize: '12px', fontWeight: '600', color: '#444', letterSpacing: '0.5px' },
-  input: { border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '11px 14px', fontSize: '14px', fontFamily: 'inherit', outline: 'none' },
-  btnPrimary: {
-    padding: '13px', background: '#1a1a1a', color: 'white', border: 'none',
-    borderRadius: '7px', fontSize: '15px', fontWeight: '500', cursor: 'pointer', marginTop: '4px',
-  },
 };
 
 export default Login;

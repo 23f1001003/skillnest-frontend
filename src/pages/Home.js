@@ -27,23 +27,169 @@ const Home = () => {
 
   return (
     <div>
+      <style>{`
+        .hero {
+          padding: 70px 40px 50px;
+          text-align: center;
+          background: linear-gradient(135deg, #fafaf8 0%, #f0ede8 100%);
+        }
+        .hero-title {
+          font-size: 44px;
+          font-weight: 300;
+          letter-spacing: -1.5px;
+          margin-bottom: 12px;
+          color: #1a1a1a;
+          line-height: 1.2;
+        }
+        .hero-title span { color: #f5a623; font-weight: 700; }
+        .hero-sub { color: #888; font-size: 16px; margin-bottom: 28px; }
+        .search-box {
+          display: flex;
+          max-width: 480px;
+          margin: 0 auto;
+          border: 1.5px solid #ddd;
+          border-radius: 8px;
+          overflow: hidden;
+          background: white;
+        }
+        .search-box input {
+          flex: 1;
+          padding: 13px 16px;
+          border: none;
+          outline: none;
+          font-size: 14px;
+          font-family: inherit;
+        }
+        .search-box button {
+          padding: 13px 22px;
+          background: #1a1a1a;
+          color: white;
+          border: none;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+        }
+        .hero-stats {
+          display: flex;
+          gap: 24px;
+          justify-content: center;
+          margin-top: 16px;
+          font-size: 13px;
+          color: #aaa;
+          flex-wrap: wrap;
+        }
+        .section { padding: 40px; }
+        .section-title {
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          color: #888;
+          margin-bottom: 20px;
+        }
+        .courses-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+        .course-card {
+          border: 1.5px solid #e8e8e8;
+          border-radius: 10px;
+          overflow: hidden;
+          background: white;
+        }
+        .course-card img, .card-img-placeholder {
+          width: 100%;
+          height: 110px;
+          object-fit: cover;
+        }
+        .card-img-placeholder {
+          background: #f0ede8;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          color: #aaa;
+        }
+        .card-body { padding: 16px; }
+        .card-tag {
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          color: #f5a623;
+          margin-bottom: 6px;
+        }
+        .card-title {
+          font-size: 15px;
+          font-weight: 600;
+          margin-bottom: 6px;
+          color: #1a1a1a;
+        }
+        .card-meta { font-size: 12px; color: #888; margin-bottom: 14px; }
+        .card-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 12px;
+          border-top: 1px solid #f0f0f0;
+        }
+        .price { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+        .btn-orange {
+          padding: 6px 14px;
+          background: #f5a623;
+          color: #1a1a1a;
+          border-radius: 6px;
+          font-size: 12px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .btn-primary {
+          padding: 12px 28px;
+          background: #1a1a1a;
+          color: white;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+        }
+        .view-all { text-align: center; margin-top: 32px; }
+
+        @media (max-width: 768px) {
+          .hero { padding: 40px 16px 30px; }
+          .hero-title { font-size: 28px; letter-spacing: -0.5px; }
+          .hero-sub { font-size: 14px; }
+          .search-box { max-width: 100%; }
+          .search-box input { font-size: 13px; padding: 10px 12px; }
+          .search-box button { padding: 10px 14px; font-size: 13px; }
+          .section { padding: 24px 16px; }
+          .courses-grid { grid-template-columns: 1fr; }
+          .hero-stats { gap: 12px; font-size: 12px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .courses-grid { grid-template-columns: repeat(2, 1fr); }
+          .hero-title { font-size: 36px; }
+          .section { padding: 32px 24px; }
+        }
+      `}</style>
+
       {/* HERO */}
-      <div style={styles.hero}>
-        <h1 style={styles.heroTitle}>
-          Find Your <span style={styles.orange}>Next Skill</span><br />Learn Smarter
+      <div className="hero">
+        <h1 className="hero-title">
+          Find Your <span>Next Skill</span><br />Learn Smarter
         </h1>
-        <p style={styles.heroSub}>Discover short courses & workshops from expert instructors</p>
-        <div style={styles.searchBox}>
+        <p className="hero-sub">Discover short courses & workshops from expert instructors</p>
+        <div className="search-box">
           <input
             placeholder="Search courses, topics, skills..."
-            style={styles.searchInput}
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <button style={styles.searchBtn} onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch}>Search</button>
         </div>
-        <div style={styles.heroStats}>
+        <div className="hero-stats">
           <span>✓ 500+ Courses</span>
           <span>✓ Expert Instructors</span>
           <span>✓ Certificates</span>
@@ -51,86 +197,49 @@ const Home = () => {
       </div>
 
       {/* FEATURED COURSES */}
-      <div style={styles.section}>
-        <div style={styles.sectionTitle}>Featured Courses</div>
-        <div style={styles.grid}>
+      <div className="section">
+        <div className="section-title">Featured Courses</div>
+        <div className="courses-grid">
           {courses.length > 0 ? courses.map(course => (
-            <div key={course._id} style={styles.card}>
+            <div key={course._id} className="course-card">
               {course.image ? (
-                <img src={course.image} alt={course.title} style={styles.cardImg} />
+                <img src={course.image} alt={course.title} />
               ) : (
-                <div style={styles.cardImgPlaceholder}>[ Course Thumbnail ]</div>
+                <div className="card-img-placeholder">[ Course Thumbnail ]</div>
               )}
-              <div style={styles.cardBody}>
-                <div style={styles.cardTag}>{course.category}</div>
-                <div style={styles.cardTitle}>{course.title}</div>
-                <div style={styles.cardMeta}>⭐ {course.rating} · {course.duration} · {course.students} students</div>
-                <div style={styles.cardFooter}>
-                  <div style={styles.price}>₹{course.price}</div>
-                  <Link to={`/courses/${course._id}`} style={styles.btnOrange}>View Course</Link>
+              <div className="card-body">
+                <div className="card-tag">{course.category}</div>
+                <div className="card-title">{course.title}</div>
+                <div className="card-meta">⭐ {course.rating} · {course.duration} · {course.students} students</div>
+                <div className="card-footer">
+                  <div className="price">₹{course.price}</div>
+                  <Link to={`/courses/${course._id}`} className="btn-orange">View Course</Link>
                 </div>
               </div>
             </div>
           )) : (
             ['React.js for Beginners', 'UI/UX Design Fundamentals', 'Python & Data Science'].map((title, i) => (
-              <div key={i} style={styles.card}>
-                <div style={styles.cardImgPlaceholder}>[ Course Thumbnail ]</div>
-                <div style={styles.cardBody}>
-                  <div style={styles.cardTag}>{['Web Dev', 'Design', 'Data'][i]}</div>
-                  <div style={styles.cardTitle}>{title}</div>
-                  <div style={styles.cardMeta}>⭐ 4.8 · 12h · 1,200 students</div>
-                  <div style={styles.cardFooter}>
-                    <div style={styles.price}>₹499</div>
-                    <Link to="/courses" style={styles.btnOrange}>View Course</Link>
+              <div key={i} className="course-card">
+                <div className="card-img-placeholder">[ Course Thumbnail ]</div>
+                <div className="card-body">
+                  <div className="card-tag">{['Web Dev', 'Design', 'Data'][i]}</div>
+                  <div className="card-title">{title}</div>
+                  <div className="card-meta">⭐ 4.8 · 12h · 1,200 students</div>
+                  <div className="card-footer">
+                    <div className="price">₹499</div>
+                    <Link to="/courses" className="btn-orange">View Course</Link>
                   </div>
                 </div>
               </div>
             ))
           )}
         </div>
-        <div style={{ textAlign: 'center', marginTop: '32px' }}>
-          <Link to="/courses" style={styles.btnPrimary}>View All Courses →</Link>
+        <div className="view-all">
+          <Link to="/courses" className="btn-primary">View All Courses →</Link>
         </div>
       </div>
     </div>
   );
-};
-
-const styles = {
-  hero: {
-    padding: '70px 40px 50px', textAlign: 'center',
-    background: 'linear-gradient(135deg, #fafaf8 0%, #f0ede8 100%)',
-  },
-  heroTitle: { fontSize: '44px', fontWeight: '300', letterSpacing: '-1.5px', marginBottom: '12px', color: '#1a1a1a' },
-  orange: { color: '#f5a623', fontWeight: '700' },
-  heroSub: { color: '#888', fontSize: '16px', marginBottom: '28px' },
-  searchBox: {
-    display: 'flex', maxWidth: '480px', margin: '0 auto',
-    border: '1.5px solid #ddd', borderRadius: '8px', overflow: 'hidden', background: 'white',
-  },
-  searchInput: {
-    flex: 1, padding: '13px 16px', border: 'none', outline: 'none',
-    fontSize: '14px', fontFamily: 'inherit',
-  },
-  searchBtn: {
-    padding: '13px 22px', background: '#1a1a1a', color: 'white',
-    border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '500',
-  },
-  heroStats: { display: 'flex', gap: '24px', justifyContent: 'center', marginTop: '16px', fontSize: '13px', color: '#aaa' },
-  section: { padding: '40px' },
-  sectionTitle: { fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '2px', color: '#888', marginBottom: '20px' },
-  grid: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' },
-  card: { border: '1.5px solid #e8e8e8', borderRadius: '10px', overflow: 'hidden', background: 'white' },
-  cardImg: { width: '100%', height: '110px', objectFit: 'cover' },
-  cardImgPlaceholder: { height: '110px', background: '#f0ede8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#aaa' },
-  cardBody: { padding: '16px' },
-  cardTag: { fontSize: '11px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#f5a623', marginBottom: '6px' },
-  cardTitle: { fontSize: '15px', fontWeight: '600', marginBottom: '6px', color: '#1a1a1a' },
-  cardMeta: { fontSize: '12px', color: '#888', marginBottom: '14px' },
-  cardFooter: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #f0f0f0' },
-  price: { fontSize: '16px', fontWeight: '700', color: '#1a1a1a' },
-  btnOrange: { padding: '6px 14px', background: '#f5a623', color: '#1a1a1a', borderRadius: '6px', fontSize: '12px', fontWeight: '600', textDecoration: 'none' },
-  btnPrimary: { padding: '12px 28px', background: '#1a1a1a', color: 'white', borderRadius: '8px', fontSize: '14px', fontWeight: '500', textDecoration: 'none' },
 };
 
 export default Home;
