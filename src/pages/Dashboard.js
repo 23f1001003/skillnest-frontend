@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!user) { navigate('/login'); return; }
-    axios.get('http://localhost:5000/api/courses/user/enrolled', {
+    axios.get('https://skillnest-backend-9xud.onrender.com/api/courses/user/enrolled', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => { setEnrolledCourses(res.data); setLoading(false); })

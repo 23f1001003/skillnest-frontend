@@ -17,7 +17,7 @@ const Login = () => {
     setError('');
     try {
       const url = isLogin ? '/api/auth/login' : '/api/auth/register';
-      const res = await axios.post(`http://localhost:5000${url}`, formData);
+      const res = await axios.post(`https://skillnest-backend-9xud.onrender.com${url}`, formData);
       login(res.data.user, res.data.token);
       navigate(res.data.user.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {

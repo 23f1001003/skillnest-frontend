@@ -12,7 +12,7 @@ const CourseDetail = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/courses/${id}`)
+    axios.get(`https://skillnest-backend-9xud.onrender.com/api/courses/${id}`)
       .then(res => setCourse(res.data))
       .catch(err => console.log(err));
   }, [id]);
@@ -21,7 +21,7 @@ const CourseDetail = () => {
     if (!user) { navigate('/login'); return; }
     try {
       await axios.post(
-        `http://localhost:5000/api/courses/${id}/enroll`,
+        `https://skillnest-backend-9xud.onrender.com/api/courses/${id}/enroll`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

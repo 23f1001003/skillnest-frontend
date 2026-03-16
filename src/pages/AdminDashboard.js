@@ -28,14 +28,14 @@ const AdminDashboard = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/courses');
+      const res = await axios.get('https://skillnest-backend-9xud.onrender.com/api/courses');
       setCourses(res.data);
     } catch (err) { console.log(err); }
   };
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axios.get('https://skillnest-backend-9xud.onrender.com/api/users', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(res.data);
@@ -44,7 +44,7 @@ const AdminDashboard = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/categories');
+      const res = await axios.get('https://skillnest-backend-9xud.onrender.com/api/categories');
       setCategories(res.data);
     } catch (err) { console.log(err); }
   };
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
   const handleAddCategory = async () => {
     if (!newCategory.trim()) return;
     try {
-      await axios.post('http://localhost:5000/api/categories',
+      await axios.post('https://skillnest-backend-9xud.onrender.com/api/categories',
         { name: newCategory.trim() },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ const AdminDashboard = () => {
 
   const handleDeleteCategory = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/categories/${id}`,
+      await axios.delete(`https://skillnest-backend-9xud.onrender.com/api/categories/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       fetchCategories();
@@ -76,11 +76,11 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       if (editCourse) {
-        await axios.put(`http://localhost:5000/api/courses/${editCourse._id}`, formData,
+        await axios.put(`https://skillnest-backend-9xud.onrender.com/api/courses/${editCourse._id}`, formData,
           { headers: { Authorization: `Bearer ${token}` } });
         setMessage('Course updated successfully!');
       } else {
-        await axios.post('http://localhost:5000/api/courses', formData,
+        await axios.post('https://skillnest-backend-9xud.onrender.com/api/courses', formData,
           { headers: { Authorization: `Bearer ${token}` } });
         setMessage('Course added successfully!');
       }
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this course?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/courses/${id}`,
+      await axios.delete(`https://skillnest-backend-9xud.onrender.com/api/courses/${id}`,
         { headers: { Authorization: `Bearer ${token}` } });
       setMessage('Course deleted successfully!');
       fetchCourses();

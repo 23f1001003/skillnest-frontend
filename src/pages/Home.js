@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/courses')
+    axios.get('https://skillnest-backend-9xud.onrender.com/api/courses')
       .then(res => setCourses(res.data.slice(0, 3)))
       .catch(err => console.log(err));
   }, []);

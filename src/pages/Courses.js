@@ -16,11 +16,11 @@ const Courses = () => {
     const searchParam = params.get('search');
     if (searchParam) setSearch(searchParam);
 
-    axios.get('http://localhost:5000/api/courses')
+    axios.get('https://skillnest-backend-9xud.onrender.com/api/courses')
       .then(res => { setCourses(res.data); setFiltered(res.data); })
       .catch(err => console.log(err));
 
-    axios.get('http://localhost:5000/api/categories')
+    axios.get('https://skillnest-backend-9xud.onrender.com/api/categories')
       .then(res => setCategories(res.data))
       .catch(err => console.log(err));
   }, [location.search]);
